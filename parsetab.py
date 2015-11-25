@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = '6B2DE1E3D38BC2B902E999122E8CEEB2'
+_lr_signature = 'FF2340BEA343F557ADB478C1D1F2A61D'
     
-_lr_action_items = {'RPAREN':([1,4,5,7,8,9,],[-1,8,-5,-4,-3,-2,]),'ALPHABET':([0,1,2,3,4,5,6,7,8,9,],[1,-1,1,1,1,-5,1,1,-3,-2,]),'TIMES':([1,3,4,5,7,8,9,],[-1,5,5,-5,5,-3,5,]),'PLUS':([1,3,4,5,7,8,9,],[-1,6,6,-5,6,-3,-2,]),'LPAREN':([0,1,2,3,4,5,6,7,8,9,],[2,-1,2,2,2,-5,2,2,-3,-2,]),'$end':([1,3,5,7,8,9,],[-1,0,-5,-4,-3,-2,]),}
+_lr_action_items = {'RPAREN':([1,4,7,8,9,10,],[-1,8,-5,-3,-2,-4,]),'ALPHABET':([0,2,5,6,],[1,1,1,1,]),'TIMES':([1,3,4,7,8,9,10,],[-1,7,7,-5,-3,7,7,]),'PLUS':([1,3,4,7,8,9,10,],[-1,5,5,-5,-3,-2,-4,]),'LPAREN':([0,2,5,6,],[2,2,2,2,]),'CONCAT':([1,3,4,7,8,9,10,],[-1,6,6,-5,-3,6,-4,]),'$end':([1,3,7,8,9,10,],[-1,0,-5,-3,-2,-4,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,2,3,4,6,7,9,],[3,4,7,7,9,7,7,]),}
+_lr_goto_items = {'expression':([0,2,5,6,],[3,4,9,10,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,9 +26,9 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> expression","S'",1,None,None,None),
-  ('expression -> ALPHABET','expression',1,'p_expression_alphabet','re_parser.py',32),
-  ('expression -> expression PLUS expression','expression',3,'p_expression_plus','re_parser.py',37),
+  ('expression -> ALPHABET','expression',1,'p_expression_alphabet','re_parser.py',34),
+  ('expression -> expression PLUS expression','expression',3,'p_expression_plus','re_parser.py',38),
   ('expression -> LPAREN expression RPAREN','expression',3,'p_expression_group','re_parser.py',42),
-  ('expression -> expression expression','expression',2,'p_expression_concat','re_parser.py',47),
-  ('expression -> expression TIMES','expression',2,'p_expression_closure','re_parser.py',52),
+  ('expression -> expression CONCAT expression','expression',3,'p_expression_concat','re_parser.py',46),
+  ('expression -> expression TIMES','expression',2,'p_expression_closure','re_parser.py',50),
 ]

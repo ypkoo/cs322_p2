@@ -4,15 +4,16 @@ import ply.lex as lex
 import ply.yacc as yacc
 
 tokens = (
-    'ALPHABET', 'PLUS', 'TIMES',
+    'ALPHABET', 'PLUS', 'TIMES', 'CONCAT',
     'LPAREN', 'RPAREN',
     )
 
 t_PLUS = r'\+'
 t_TIMES = r'\*'
+t_CONCAT = r'\.'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-t_ALPHABET = r'a|b|c|d|epsilon'
+t_ALPHABET = r'a|b|c|d|e|f|_epsilon'
 
 # Ignored characters
 t_ignore = " \t"
@@ -25,6 +26,7 @@ lexer = lex.lex()
 
 precedence = (
     ('left','PLUS'),
+    ('left', 'CONCAT'),
     ('left', 'TIMES'),
     )
 
@@ -41,12 +43,13 @@ def p_expression_group(t):
     t[0] = (t[2])
 
 def p_expression_concat(t):
-    'expression : expression expression'
-    t[0] = ('.', t[1], t[2])
+    'expression : expression CONCAT expression'
+    t[0] = ('.', t[1], t[3])
 
 def p_expression_closure(t):
     'expression : expression TIMES'
     t[0] = ('*', t[1])
+
 
 
 def p_error(t):
@@ -54,15 +57,12 @@ def p_error(t):
 
 parser = yacc.yacc()
 
-while True:
-    try:
-        s = raw_input('re > ')   # Use raw_input on Python 2
-    except EOFError:
-        break
-    result = parser.parse(s)
-    print result
+if __name__ == "__main__":
+    while True:
+        try:
+            s = raw_input('re > ')   # Use raw_input on Python 2
+        except EOFError:
+            break
+        result = parser.parse(s)
+        print result
 
-def parse_re():
-    s = raw_input('re > ')   # Use raw_input on Python 2
-    result = parser.parse(s)
-    print result
